@@ -1,0 +1,232 @@
+#### DATA COLLECTION WITH SNSCRAPE
+!pip install snscrape
+!pip install --upgrade snscrape
+import snscrape.modules.twitter as sntwitter
+import pandas as pd
+import json
+
+tweets_list = []
+#keyword combination "윤석열 언론"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('윤석열 언론 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+#keyword combination "언론 자유 한국"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('언론 자유 한국 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+#keyword combination "언론자유"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('언론자유 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+#keyword combination "출판의 자유"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('출판의 자유 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+#keyword combination "방송 자유 한국"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('방송 자유 한국 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+#keyword combination "대통령 언론 한국"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('대통령 언론 한국 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+#keyword combination "기자 자유 한국"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('기자 자유 한국 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+#keyword combination "대통령 방송 한국"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('대통령 방송 한국 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+#keyword combination "윤석열 방송 자유"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('윤석열 방송 자유 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+#keyword combination "윤석열 기자 자유"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('윤석열 기자 자유 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+#keyword combination "정부 언론 한국"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('정부 언론 한국 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+#keyword combination "대통령실 언론 한국"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('대통령실 언론 한국 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+#keyword combination "정부 기자 한국"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('정부 기자 한국 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+  #keyword combination "정부 신문 자유 한국"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('정부 신문 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+#keyword combination "대통령 신문 자유"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('대통령 신문 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+#keyword combination "신문 자유 한국"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('신문 자유 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+#keyword combination "윤석열 신문 자유"
+for i,tweet in enumerate(sntwitter.TwitterSearchScraper('윤석열 신문 since:2022-05-10 until:2023-04-10').get_items()):
+    if i>1000000:
+        break
+    tweets_list.append([tweet.date, tweet.id, tweet.rawContent, tweet.user.username])
+  
+tweets_df = pd.DataFrame(tweets_list, columns=['Datetime', 'Id', 'Text', 'Username'])
+
+
+#### PREPROCESSING TWEETS
+# Deleting unrelated tweets
+tweets_df = tweets_df[~tweets_df['Text'].str.contains('마스토돈|힐러리|신냉전|펜스|도널드|플로리다|POTUS|공화당|달러|민생|아제르바이잔|절대왕정|하토야마|태슬라|맹진|정부용어사전|안철수|적자|총파업|화물연대|대우조선|인플레이션|조문|스코틀랜드|강제동원|대선후보자격검증|부산수요시위|은행권|부동산|기념|칸|국제영화제|소득|예산|미사일|무인기|맨해튼|우크라이나|EricTrump|스티브|머스크|FBI|비핵화|독도|이세창|간첩|엘리자베스|대만|집값|방역|러시아|마약과의|백신|멍게|아이히만|119동물구조대상|동물자유연대|동물학대|풍산개|반혁명분자들과|부정선거|지방선거|정론직필|격노')]
+
+# Deleting duplicate tweets
+unique_count = tweets_df.Id.nunique()
+print(f'{unique_count} tweets are unique out of our {tweets_df.shape[0]} total tweets')
+nodupl_tweets_df = tweets_df.drop_duplicates(keep='first')
+print(len(nodupl_tweets_df))
+
+# Preprocessing with KoNLPy okt.nouns
+!pip install konlpy 
+!sudo apt-get install g++ openjdk-8-jdk python3-dev python3-pip curl
+!python3 -m pip install --upgrade pip
+!python3 -m pip install konlpy 
+!sudo apt-get install curl git
+from konlpy.tag import Okt
+okt = Okt()
+tweets_nouns = [okt.nouns(line) for line in nodupl_tweets_df['Text']]
+
+# Case-study treating some other words as stop words
+stop_words = ['무릅쓰', '씨', '류', '기자수집가', '발톱', '딴지', '중', '한마디', '직','원전', '깨', '링크', '주민', '좀', '파도', '라며', '저', '출처', '일', '절', '하루', '전', '주진우', '차', '핵', '취소', '타운', '신고', '사이비', '또', '아', '곳', '공장','출근길','하이킥', '개','생각', '사람', '똑바로', '짓', '사업', '주민', '시작','제목', '얼마나', '곳', '노골', '모두','말', '문건', '이제', '누구', '소리', '여성', '그거', '은', '무슨', '내', '채용', '정도', '고','조선일보', '정말', '알', '때문', '뻔', '미디어랩', '끝', '자기', '이건', '데', '거', '건', '거기', '그냥','네이버', '하나', '위', '오후', '림', '다음', '유키오', '점', '선', '타임즈', '앞', '선', '비', '분', '수소', '뉴시스','하자', '거지', '진짜', '무엇', '며', '못', '오늘', '이번', '동아일보', '해', '줄', '질', '그날', '보', '뿐', '만', '타고', '간질', '종합', '이', '수', '왜', '우리', '아마', '니', '종말', '저리', '누가', '입', '유족', '뷰', '다른', '굥','힘','더', '명', '말','것', '이', '그', '나' ,'제', '게', '재','의','로', '뭐','등','관','를','스픽스', '아치', '롱', '마크', '회', '너', '걸', '너', '안', '때', '민', '지금', '외전']
+cl_tweets_nouns = [[y for y in x if y not in stop_words] for x in tweets_nouns]
+
+
+###EXTRACTING KEYWORDS WITH TF-IDF
+# TF
+from collections import Counter
+def get_rtfs(article):
+    terms = [w for doc in cl_tweets_nouns for w in doc]
+    tfs = Counter(terms)
+    return tfs
+rtfs = get_rtfs(cl_tweets_nouns)
+rtfs
+
+from math import log10
+def get_tfs(docs):
+    terms = [w for doc in cl_tweets_nouns for w in doc]
+    tfs = Counter(terms)
+    tfs = {t:log10(f + 1) for t, f in rtfs.items()} 
+    return tfs
+tfs = get_tfs(cl_tweets_nouns)
+tfs
+
+# DF
+def get_dfs(docs, terms):
+    dfs = {term: 0 for term in terms}
+
+    for term in terms:
+        for doc in docs:
+            if term in doc:
+                dfs[term] = dfs.get(term, 0) + 1
+    return dfs
+dfs = get_dfs(cl_tweets_nouns, tfs.keys())
+dfs
+
+# IDF
+def get_idfs(N, dfs, terms):
+    #every term
+    idfs = {term: log10(N/dfs[term]) for term in terms}
+    return idfs
+N = len(cl_tweets_nouns)
+idfs = get_idfs(N, dfs, tfs.keys())
+idfs
+ordered_idfs = sorted(idfs.items(), key=lambda each:each[1], reverse=True)
+
+# TF-IDF
+def get_tf_idfs(idfs, tfs):
+    tf_idf = {}
+    for term in tfs.keys():
+        tf = tfs.get(term, 0)
+        idf = idfs.get(term, 0)
+        tf_idf[term] = tf*idf
+    return tf_idf
+get_tf_idfs(idfs, tfs)
+
+ordered_tf_idfs = sorted(get_tf_idfs(idfs, tfs).items(), key=lambda each:each[1], reverse=True)
+ordered_tf_idfs[:30]
+
+#TOPIC MODELING WITH LDA
+!pip install lda
+import lda
+import re
+import numpy as np
+from pprint import pprint
+import gensim, spacy, logging, warnings
+import gensim.corpora as corpora
+from gensim.utils import simple_preprocess
+from gensim.models import CoherenceModel
+import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings("ignore")
+# Creating dictionary
+id2word = corpora.Dictionary(cl_tweets_nouns)
+
+# Creating corpus: Term Document Frequency
+corpus = [id2word.doc2bow(text) for text in cl_tweets_nouns]
+
+# Building LDA model
+n_topics =10
+
+lda_model = gensim.models.ldamodel.LdaModel(corpus=corpus,
+                                           id2word=id2word,
+                                           num_topics=n_topics, 
+                                           random_state=100,
+                                           update_every=1,
+                                           chunksize=10,
+                                           passes=10,
+                                           alpha='symmetric',
+                                           iterations=100,
+                                           per_word_topics=True)
+
+n_words = 15
+pprint(lda_model.print_topics(num_topics=n_topics, num_words=n_words))
+
+# pyLDAvis visualization
+!pip install pyLDAvis
+import pyLDAvis
+import pyLDAvis.gensim_models
+import gensim
+
+from gensim.utils import SaveLoad
+# Saving the corpus, dictionary and model
+gensim.corpora.MmCorpus.serialize('corpus.mm', corpus)
+id2word.save('corpus.dict')
+lda_model.save('lda_model.gensim')
+
+# Loading corpus, dictionary and model
+corpus = gensim.corpora.MmCorpus('corpus.mm')
+id2word = gensim.corpora.Dictionary.load('corpus.dict')
+lda_model = gensim.models.ldamodel.LdaModel.load('lda_model.gensim')
+  
+# Visualization
+vis_data = pyLDAvis.gensim_models.prepare(lda_model, corpus, id2word)
+pyLDAvis.display(vis_data)
